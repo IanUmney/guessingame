@@ -1,42 +1,52 @@
-playercount = input("This is a two player guessing game, player 1 will input the word and player 2 will try to guess it! If you want to play this singleplayer enter singleplayer, if you want to play multiplayer, enter multiplayer.")
-if playercount == "multiplayer":
-    wordinput = input("please enter the word you want player 2 to guess")
-    guesscount = 0
-    guesslimit = 6
-    outoftries = False
-    print("                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ")
-    randomword = wordinput
-    attempt = " "
-    while attempt != randomword and not(outoftries):
-        if guesscount < guesslimit:
-            attempt = input("please enter a guess")
-        if guesscount > guesslimit:
-            print("You have run out of tries!")
-            exit()
-            guesscount +=1
-        else: outoftries = True
-    if attempt == randomword:
-        print("You have finished the game!")
-elif playercount == "singleplayer":
-    import random
-    wordchoice = ["orange", "person", "noun", "money", "tiger", "people"]
-    randomword1 = (random.choice(wordchoice))
-    guesscount = 0
-    guesslimit = 6
-    outoftries = False
+import random
 
-    attempt1 = " "
-    while attempt1 != randomword1 and not(outoftries):
-        if guesscount < guesslimit:
-            attempt1 = input("please enter a guess")
-        if guesscount > guesslimit:
-            print("You have run out of tries!")
-            exit()
-        guesscount +=1
-    else: outoftries = True
-    if attempt1 == randomword1:
-        print("You have finished the game!")
+guessCount = 0
+guessLimit = 6
+words = ["orange", "person", "noun", "money", "tiger", "people"]
 
 
-    exit()
+def singlePlayer():
+    global guessCount, guessLimit, words
+    
+    word = random.choice(words)
+    while guessCount < guessLimit:
+        attempt = input("Enter a guess: ")
+        if attempt == word:
+            exit(f"You guessed it in {guessCount+1} tries!")
+        else:
+            print(f"Incorrect. Try again. You have {guessLimit-guessCount-1} tries left.")
+            guessCount += 1
+
+
+def multiPlayer():
+    global guessCount, guessLimit
+
+    word = input("please enter the word you want player 2 to guess: ")
+    while guessCount < guessLimit:
+        attempt = input("Enter a guess: ")
+        if attempt == word:
+            exit(f"You guessed it in {guessCount+1} tries!")
+        else:
+            print(f"Incorrect. Try again. You have {guessLimit-guessCount-1} tries left.")
+            guessCount += 1
+
+
+def main():
+    playercount = input("""This is a two player guessing game. 
+Player 1 will input the word and player 2 will try to guess it! 
+
+    - If you want to play this singleplayer enter 'singleplayer'
+    - If you want to play multiplayer, enter 'multiplayer'
+
+Mode Selection: """)
+
+    if playercount == "singleplayer":
+        singlePlayer()
+    elif playercount == "multiplayer":
+        multiPlayer()
+    else:
+        exit("Incorrect play mode selected.")
+
+if __name__=="__main__":
+    main()
 
