@@ -1,21 +1,23 @@
 import random
+from random_word import RandomWords
 
 guessCount = 0
 guessLimit = 6
-words = ["orange", "person", "noun", "money", "tiger", "people"]
 
 
 def singlePlayer():
-    global guessCount, guessLimit, words
+    global guessCount, guessLimit
     
-    word = random.choice(words)
+    randomWord = RandomWords().get_random_word(minCorpusCount=10000)
+
     while guessCount < guessLimit:
         attempt = input("Enter a guess: ")
-        if attempt == word:
+        if attempt == randomWord:
             exit(f"You guessed it in {guessCount+1} tries!")
         else:
             print(f"Incorrect. Try again. You have {guessLimit-guessCount-1} tries left.")
             guessCount += 1
+    print(f"\nThe word was '{randomWord}'")
 
 
 def multiPlayer():
